@@ -8,6 +8,7 @@ import io.swagger.annotations.ApiParam;
 import it.terrinoni.terrybooks.controller.api.BookApi;
 import it.terrinoni.terrybooks.model.Book;
 import it.terrinoni.terrybooks.service.BookService;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -49,6 +50,28 @@ public class BookApiController implements BookApi {
     Book res = bookService.addBook(requestId.get(), book);
 
     return new ResponseEntity<>(res, HttpStatus.OK);
+  }
+
+  /**
+   * Controller method for bulk storage of new books
+   *
+   * @param bookList list of book objects to be stored
+   *
+   * @return response entity containing the list of stored book objects
+   */
+  @Override
+  public ResponseEntity<List<Book>> addBooksBulk(
+      @ApiParam(value = "Books list to be added", required = true) @RequestBody List<Book> bookList) {
+    log.info("[{}] New books list bulk storage request received, books to be stored: {}",
+        requestId.incrementAndGet(), bookList.size());
+
+    List<Book> resList = new ArrayList<>();
+    bookList.forEach(b -> {
+      Book res = bookService.addBook(requestId.get(), b);
+      resList.add(res);
+    });
+
+    return new ResponseEntity<>(resList, HttpStatus.OK);
   }
 
   /**

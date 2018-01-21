@@ -38,6 +38,18 @@ public interface BookApi {
   ResponseEntity<Book> addBook(
       @ApiParam(value = "Book to be added", required = true) @RequestBody Book book);
 
+  @ApiOperation(value = "Bulk add new books list", notes = "This API can be used to store a list of new books", response = Book.class, responseContainer = "List", tags = {
+      "v0", "book",})
+  @ApiResponses(value = {
+      @ApiResponse(code = 200, message = "Successful operation", response = Book.class),
+      @ApiResponse(code = 500, message = "Internal server error")})
+  @RequestMapping(value = "/book/bulk",
+      produces = {"application/json"},
+      consumes = {"application/json"},
+      method = RequestMethod.POST)
+  ResponseEntity<List<Book>> addBooksBulk(
+      @ApiParam(value = "Books list to be added", required = true) @RequestBody List<Book> bookList);
+
   @ApiOperation(value = "Get the single book", notes = "This API can be used to retrieve the specific book", response = Book.class, tags = {
       "v0", "book",})
   @ApiResponses(value = {
