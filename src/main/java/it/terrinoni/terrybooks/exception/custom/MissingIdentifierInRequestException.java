@@ -8,7 +8,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
 /**
- * Custom exception identifying missing identifier in request.
+ * Custom exception identifying missing identifier in request; this exception is raised when a
+ * request is received but the identifier is missing or not valid.
  */
 @ResponseStatus(value = HttpStatus.BAD_REQUEST, reason = "Missing identifier in request")
 public class MissingIdentifierInRequestException extends RuntimeException {

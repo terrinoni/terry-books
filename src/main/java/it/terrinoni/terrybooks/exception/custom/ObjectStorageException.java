@@ -8,7 +8,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
 /**
- * Custom exception identifying a problem while storing a new object.
+ * Custom exception identifying a problem while storing a new object; this exception is raised
+ * whenever a generic problem occurs while storing an object through a repository.
  */
 @ResponseStatus(value = HttpStatus.INTERNAL_SERVER_ERROR, reason = "Unknown storage error")
 public class ObjectStorageException extends RuntimeException {

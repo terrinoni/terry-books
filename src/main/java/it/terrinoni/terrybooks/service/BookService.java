@@ -109,8 +109,8 @@ public class BookService {
    * Service method to retrieve the list of books that match with the specified parameters.
    *
    * @param requestId         internal request identifier
-   * @param author            author string
-   * @param titleLike         title string
+   * @param author            author name
+   * @param titleLike         book title
    * @param publishDateBefore publication date before the specified parameter
    * @param publishDateAfter  publication date after the specified parameter
    *
@@ -184,14 +184,17 @@ public class BookService {
   // PRIVATE INTERNAL METHODS
 
   /**
-   * TODO
+   * Private internal method that is used to understand which query method from book repository
+   * apply to retrieve the list of books, based on the input parameters received from the
+   * controller. If no parameters is specified, this method executes the "find all" query, returning
+   * the whole book collection.
    *
-   * @param author            TBC
-   * @param titleLike         TBC
-   * @param publishDateBefore TBC
-   * @param publishDateAfter  TBC
+   * @param author            author name
+   * @param titleLike         book title
+   * @param publishDateBefore publication date before the specified parameter
+   * @param publishDateAfter  publication date after the specified parameter
    *
-   * @return
+   * @return the list of books that match with the specified parameters
    */
   private List<Book> bookListQueryExecutor(int requestId, String author, String titleLike,
       Date publishDateBefore,

@@ -8,7 +8,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
 /**
- * Custom exception identifying storing an object with an already used identifier.
+ * Custom exception identifying storing an object with an already used identifier; this exception is
+ * raised whenever the repository is trying to store an object with an already used identifier.
  */
 @ResponseStatus(value = HttpStatus.BAD_REQUEST, reason = "Key already stored")
 public class KeyDuplicationException extends RuntimeException {

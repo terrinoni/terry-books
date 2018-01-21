@@ -10,165 +10,175 @@ import java.util.List;
 import org.springframework.data.mongodb.repository.MongoRepository;
 
 /**
- * TODO
+ * Spring Data basic repository; it can be used to interact with the MongoDB instance.
  */
 public interface BookRepository extends MongoRepository<Book, String> {
 
   /**
-   * TODO
+   * Query method to retrieve the list of books that match with the author name, book title, and
+   * publish date (before and after).
    *
-   * @param author            TBC
-   * @param title             TBC
-   * @param publishDateBefore TBC
-   * @param publishDateAfter  TBC
+   * @param author            author name
+   * @param title             book title
+   * @param publishDateBefore publish date before
+   * @param publishDateAfter  publish date after
    *
-   * @return TBC
+   * @return the list of books that match with the specified parameters
    */
   List<Book> findAllByAuthorAndTitleContainsAndPublishDateBeforeAndPublishDateAfter(String author,
       String title, Date publishDateBefore, Date publishDateAfter);
 
   /**
-   * TODO
+   * Query method to retrieve the list of books that match with the author name, book title, and
+   * publish date (before).
    *
-   * @param author            TBC
-   * @param title             TBC
-   * @param publishDateBefore TBC
+   * @param author            author name
+   * @param title             book title
+   * @param publishDateBefore publish date before
    *
-   * @return TBC
+   * @return the list of books that match with the specified parameters
    */
   List<Book> findAllByAuthorAndTitleContainsAndPublishDateBefore(String author, String title,
       Date publishDateBefore);
 
   /**
-   * TODO
+   * Query method to retrieve the list of books that match with the author name, book title, and
+   * publish date (after).
    *
-   * @param author           TBC
-   * @param title            TBC
-   * @param publishDateAfter TBC
+   * @param author           author name
+   * @param title            book title
+   * @param publishDateAfter publish date after
    *
-   * @return TBC
+   * @return the list of books that match with the specified parameters
    */
   List<Book> findAllByAuthorAndTitleContainsAndPublishDateAfter(String author, String title,
       Date publishDateAfter);
 
   /**
-   * TODO
+   * Query method to retrieve the list of books that match with the author name, and book title.
    *
-   * @param author TBC
-   * @param title  TBC
+   * @param author author name
+   * @param title  book title
    *
-   * @return TBC
+   * @return the list of books that match with the specified parameters
    */
   List<Book> findAllByAuthorAndTitleContains(String author, String title);
 
   /**
-   * TODO
+   * Query method to retrieve the list of books that match with the author name, and publish date
+   * (before and after).
    *
-   * @param author            TBC
-   * @param publishDateBefore TBC
-   * @param publishDateAfter  TBC
+   * @param author            author name
+   * @param publishDateBefore publish date before
+   * @param publishDateAfter  publish date after
    *
-   * @return TBC
+   * @return the list of books that match with the specified parameters
    */
   List<Book> findAllByAuthorAndPublishDateBeforeAndPublishDateAfter(String author,
       Date publishDateBefore, Date publishDateAfter);
 
   /**
-   * TODO
+   * Query method to retrieve the list of books that match with the author name, and publish date
+   * (before).
    *
-   * @param author            TBC
-   * @param publishDateBefore TBC
+   * @param author            author name
+   * @param publishDateBefore publish date before
    *
-   * @return TBC
+   * @return the list of books that match with the specified parameters
    */
   List<Book> findAllByAuthorAndPublishDateBefore(String author, Date publishDateBefore);
 
   /**
-   * TODO
+   * Query method to retrieve the list of books that match with the author name, and publish date
+   * (after).
    *
-   * @param author           TBC
-   * @param publishDateAfter TBC
+   * @param author           author name
+   * @param publishDateAfter publish date after
    *
-   * @return TBC
+   * @return the list of books that match with the specified parameters
    */
   List<Book> findAllByAuthorAndPublishDateAfter(String author, Date publishDateAfter);
 
   /**
-   * TODO
+   * Query method to retrieve the list of books that match with the author name.
    *
-   * @param author TBC
+   * @param author author name
    *
-   * @return TBC
+   * @return the list of books that match with the specified parameters
    */
   List<Book> findAllByAuthor(String author);
 
   /**
-   * TODO
+   * Query method to retrieve the list of books that match with the book title, and publish date
+   * (before and after).
    *
-   * @param title             TBC
-   * @param publishDateBefore TBC
-   * @param publishDateAfter  TBC
+   * @param title             book title
+   * @param publishDateBefore publish date before
+   * @param publishDateAfter  publish date after
    *
-   * @return TBC
+   * @return the list of books that match with the specified parameters
    */
   List<Book> findAllByTitleContainsAndPublishDateBeforeAndPublishDateAfter(String title,
       Date publishDateBefore, Date publishDateAfter);
 
   /**
-   * TODO
+   * Query method to retrieve the list of books that match with the book title, and publish date
+   * (before).
    *
-   * @param title             TBC
-   * @param publishDateBefore TBC
+   * @param title             book title
+   * @param publishDateBefore publish date before
    *
-   * @return TBC
+   * @return the list of books that match with the specified parameters
    */
   List<Book> findAllByTitleContainsAndPublishDateBefore(String title, Date publishDateBefore);
 
   /**
-   * TODO
+   * Query method to retrieve the list of books that match with the book title, and publish date
+   * (after).
    *
-   * @param title            TBC
-   * @param publishDateAfter TBC
+   * @param title            book title
+   * @param publishDateAfter publish date after
    *
-   * @return TBC
+   * @return the list of books that match with the specified parameters
    */
   List<Book> findAllByTitleContainsAndPublishDateAfter(String title, Date publishDateAfter);
 
   /**
-   * TODO
+   * Query method to retrieve the list of books that match with the book title.
    *
-   * @param title TBC
+   * @param title book title
    *
-   * @return TBC
+   * @return the list of books that match with the specified parameters
    */
   List<Book> findAllByTitleContains(String title);
 
   /**
-   * TODO
+   * Query method to retrieve the list of books that match with the publish date (before and
+   * after).
    *
-   * @param publishDateBefore TBC
-   * @param publishDateAfter  TBC
+   * @param publishDateBefore publish date before
+   * @param publishDateAfter  publish date after
    *
-   * @return TBC
+   * @return the list of books that match with the specified parameters
    */
   List<Book> findAllByPublishDateBeforeAndPublishDateAfter(Date publishDateBefore,
       Date publishDateAfter);
 
   /**
-   * TODO
+   * Query method to retrieve the list of books that match with the publish date (before).
    *
-   * @param publishDateBefore TBC
+   * @param publishDateBefore publish date before
    *
-   * @return TBC
+   * @return the list of books that match with the specified parameters
    */
   List<Book> findAllByPublishDateBefore(Date publishDateBefore);
 
   /**
-   * TODO
+   * Query method to retrieve the list of books that match with the publish date (after).
    *
-   * @param publishDateAfter TBC
+   * @param publishDateAfter publish date after
    *
-   * @return TBC
+   * @return the list of books that match with the specified parameters
    */
   List<Book> findAllByPublishDateAfter(Date publishDateAfter);
 

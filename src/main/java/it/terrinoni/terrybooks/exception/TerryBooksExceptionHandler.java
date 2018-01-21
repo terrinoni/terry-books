@@ -23,11 +23,11 @@ public class TerryBooksExceptionHandler {
   // INTERNAL SERVER ERROR
 
   /**
-   * TODO
+   * Null pointer exception handler, it redirects to an internal server error notification.
    *
-   * @param ex TBC
+   * @param ex original exception
    *
-   * @return TBC
+   * @return error response message entity containing the error information
    */
   @ExceptionHandler(NullPointerException.class)
   public ResponseEntity<ErrorResponseMessage> handleNullPointerException(Exception ex) {
@@ -37,11 +37,11 @@ public class TerryBooksExceptionHandler {
   }
 
   /**
-   * TODO
+   * Runtime exception handler, it redirects to an internal server error notification.
    *
-   * @param ex TBC
+   * @param ex original exception
    *
-   * @return TBC
+   * @return error response message entity containing the error information
    */
   @ExceptionHandler(RuntimeException.class)
   public ResponseEntity<ErrorResponseMessage> handleRuntimeException(Exception ex) {
@@ -51,11 +51,11 @@ public class TerryBooksExceptionHandler {
   }
 
   /**
-   * TODO
+   * Object storage exception, it redirects to an internal server error notification.
    *
-   * @param ex TBC
+   * @param ex original exception
    *
-   * @return TBC
+   * @return error response message entity containing the error information
    */
   @ExceptionHandler(ObjectStorageException.class)
   public ResponseEntity<ErrorResponseMessage> handleBookStorageException(Exception ex) {
@@ -67,11 +67,11 @@ public class TerryBooksExceptionHandler {
   // BAD REQUEST
 
   /**
-   * TODO
+   * Missing identifier in request exception, it redirects to a bad request notification.
    *
-   * @param ex TBC
+   * @param ex original exception
    *
-   * @return TBC
+   * @return error response message entity containing the error information
    */
   @ExceptionHandler(MissingIdentifierInRequestException.class)
   public ResponseEntity<ErrorResponseMessage> handleMissingIdentifierInRequestException(
@@ -82,11 +82,11 @@ public class TerryBooksExceptionHandler {
   }
 
   /**
-   * TODO
+   * Duplicated key exception, it redirects to a bad request notification.
    *
-   * @param ex TBC
+   * @param ex original exception
    *
-   * @return TBC
+   * @return error response message entity containing the error information
    */
   @ExceptionHandler(KeyDuplicationException.class)
   public ResponseEntity<ErrorResponseMessage> handleKeyDuplicationException(Exception ex) {
