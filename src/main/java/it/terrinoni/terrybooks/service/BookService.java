@@ -118,7 +118,16 @@ public class BookService {
    */
   public List<Book> getBookList(int requestId, String author, String titleLike,
       Date publishDateBefore, Date publishDateAfter) {
-    throw new UnsupportedOperationException("Not implemented");
+    log.debug(
+        "[{}] Retrieve the list of books that match with the following parameters: author: {}, title_like: {}, publish_date_before: {}, publish_date_after: {}",
+        requestId, author, titleLike, publishDateBefore, publishDateAfter);
+
+    List<Book> bookList = bookListQueryExecutor(requestId, author, titleLike, publishDateBefore,
+        publishDateAfter);
+
+    log.info("[{}] {} total books found", requestId, bookList.size());
+
+    return bookList;
   }
 
   /**
@@ -131,7 +140,23 @@ public class BookService {
    * @return the updated book
    */
   public Book updateBook(int requestId, String isbn, Book book) {
-    throw new UnsupportedOperationException("Not implemented");
+    log.debug("[{}] Update book with IBSN: {} with following data: {}", requestId, isbn,
+        book.toString());
+
+    Book updatedBook;
+    try {
+      updatedBook = bookRepository.save(book);
+    } catch (MongoException mEx) {
+      String msg = String
+          .format("[%d] Unable to update the specified book, exception: %s", requestId,
+              mEx.getMessage());
+      log.error(msg);
+      throw new RuntimeException(msg, mEx);
+    }
+
+    log.info("[{}] Book successfully update with ISBN: {}", requestId, isbn);
+
+    return updatedBook;
   }
 
   /**
@@ -141,6 +166,133 @@ public class BookService {
    * @param isbn      book unique identifier
    */
   public void deleteBook(int requestId, String isbn) {
-    throw new UnsupportedOperationException("Not implemented");
+    log.debug("[{}] Remove book with ISBN: {}", requestId, isbn);
+
+    try {
+      bookRepository.delete(isbn);
+    } catch (MongoException mEx) {
+      String msg = String
+          .format("[%d] Unable to delete the specified book, exception: %s", requestId,
+              mEx.getMessage());
+      log.error(msg);
+      throw new RuntimeException(msg, mEx);
+    }
+
+    log.info("[{}] Book successfully deleted with ISBN: {}", requestId, isbn);
+  }
+
+  // PRIVATE INTERNAL METHODS
+
+  /**
+   * TODO
+   *
+   * @param author            TBC
+   * @param titleLike         TBC
+   * @param publishDateBefore TBC
+   * @param publishDateAfter  TBC
+   *
+   * @return
+   */
+  private List<Book> bookListQueryExecutor(int requestId, String author, String titleLike,
+      Date publishDateBefore,
+      Date publishDateAfter) {
+
+    List<Book> bookList;
+
+    try {
+      if (author != null && !author.isEmpty()) {
+        if (titleLike != null && !titleLike.isEmpty()) {
+          if (publishDateBefore != null) {
+            if (publishDateAfter != null) {
+              // author, title, publish date before, publish date after
+              bookList = bookRepository
+                  .findAllByAuthorAndTitleContainsAndPublishDateBeforeAndPublishDateAfter(author,
+                      titleLike, publishDateBefore, publishDateAfter);
+            } else {
+              // author, title, publish date before
+              bookList = bookRepository
+                  .findAllByAuthorAndTitleContainsAndPublishDateBefore(author, titleLike,
+                      publishDateBefore);
+            }
+          } else {
+            if (publishDateAfter != null) {
+              // author, title, publish date after
+              bookList = bookRepository
+                  .findAllByAuthorAndTitleContainsAndPublishDateAfter(author, titleLike,
+                      publishDateAfter);
+            } else {
+              // author, title
+              bookList = bookRepository.findAllByAuthorAndTitleContains(author, titleLike);
+            }
+          }
+        } else {
+          if (publishDateBefore != null) {
+            if (publishDateAfter != null) {
+              // author, publish date before, publish date after
+              bookList = bookRepository
+                  .findAllByAuthorAndPublishDateBeforeAndPublishDateAfter(author, publishDateBefore,
+                      publishDateAfter);
+            } else {
+              // author, publish date before
+              bookList = bookRepository
+                  .findAllByAuthorAndPublishDateBefore(author, publishDateBefore);
+            }
+          } else {
+            if (publishDateAfter != null) {
+              // author, publish date after
+              bookList = bookRepository
+                  .findAllByAuthorAndPublishDateAfter(author, publishDateAfter);
+            } else {
+              // author
+              bookList = bookRepository.findAllByAuthor(author);
+            }
+          }
+        }
+      } else if (titleLike != null && !titleLike.isEmpty()) {
+        if (publishDateBefore != null) {
+          if (publishDateAfter != null) {
+            // title, publish date before, publish date after
+            bookList = bookRepository
+                .findAllByTitleContainsAndPublishDateBeforeAndPublishDateAfter(titleLike,
+                    publishDateBefore, publishDateAfter);
+          } else {
+            // title, publish date before
+            bookList = bookRepository
+                .findAllByTitleContainsAndPublishDateBefore(titleLike, publishDateBefore);
+          }
+        } else {
+          if (publishDateAfter != null) {
+            // title, publish date after
+            bookList = bookRepository
+                .findAllByTitleContainsAndPublishDateAfter(titleLike, publishDateAfter);
+          } else {
+            // title
+            bookList = bookRepository.findAllByTitleContains(titleLike);
+          }
+        }
+      } else if (publishDateBefore != null) {
+        if (publishDateAfter != null) {
+          // publish date before, publish date after
+          bookList = bookRepository
+              .findAllByPublishDateBeforeAndPublishDateAfter(publishDateBefore, publishDateAfter);
+        } else {
+          // publish date before
+          bookList = bookRepository.findAllByPublishDateBefore(publishDateBefore);
+        }
+      } else if (publishDateAfter != null) {
+        // publish date after
+        bookList = bookRepository.findAllByPublishDateAfter(publishDateAfter);
+      } else {
+        bookList = bookRepository.findAll();
+      }
+    } catch (MongoException mEx) {
+      String msg = String
+          .format("[%d] Unable to retrieve the list of books, exception: %s", requestId,
+              mEx.getMessage());
+      log.error(msg);
+      throw new RuntimeException(msg, mEx);
+    }
+
+    return bookList;
   }
 }

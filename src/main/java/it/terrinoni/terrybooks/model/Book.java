@@ -59,10 +59,6 @@ public class Book extends BaseEntity implements Serializable {
     return isbn;
   }
 
-//  public void setIsbn(String isbn) {
-//    this.isbn = isbn;
-//  }
-
   @JsonProperty("title")
   @ApiModelProperty(value = "Title of the book")
   public String getTitle() {
