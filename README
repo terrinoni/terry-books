@@ -1,0 +1,5 @@
+#Terry Books
+Training project with Spring and MongoDB.
+
+## How to start the project
+`mvn clean package spring-boot:run`
